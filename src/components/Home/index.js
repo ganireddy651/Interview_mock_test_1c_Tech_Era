@@ -1,8 +1,8 @@
 import {Component} from 'react'
 import {withRouter} from 'react-router-dom'
-import Loader from 'react-loader-spinner'
+// import Loader from 'react-loader-spinner'
 import Header from '../Header'
-import Courses from '../Courses'
+import CourseItemDetails from '../CourseItemDetails'
 import './index.css'
 
 const fetchStatus = {
@@ -21,11 +21,11 @@ class Home extends Component {
 
   getCourses = async () => {
     this.setState({status: fetchStatus.inProgress})
-    const url = 'https://apis.ccbp.in/te/courses'
-    const option = {
-      method: 'GET',
-    }
-    const response = await fetch(url, option)
+    // const url = 'https://apis.ccbp.in/te/courses'
+    // const option = {
+    //   method: 'GET',
+    // }
+    const response = await fetch('https://apis.ccbp.in/te/courses')
     const data = await response.json()
     if (response.ok === true) {
       const updatedData = data.courses.map(each => ({
@@ -34,7 +34,7 @@ class Home extends Component {
         logoUrl: each.logo_url,
       }))
       this.setState({data: updatedData, status: fetchStatus.success})
-    } else {
+    } else if (response.status === 404) {
       this.setState({status: fetchStatus.failure})
     }
   }
@@ -44,7 +44,7 @@ class Home extends Component {
     return (
       <ul className="list-container">
         {data.map(eachCourse => (
-          <Courses eachCourse={eachCourse} key={eachCourse.id} />
+          <CourseItemDetails eachCourse={eachCourse} key={eachCourse.id} />
         ))}
       </ul>
     )
@@ -62,7 +62,7 @@ class Home extends Component {
         alt="failure view"
       />
       <h1>Oops! Something Went Wrong</h1>
-      <p>We cannot seem to find page you are looking for.</p>
+      <p>We cannot seem to find the page you are looking for</p>
       <button onClick={this.onClickRetry} className="retry-btn" type="button">
         Retry
       </button>
@@ -71,7 +71,7 @@ class Home extends Component {
 
   renderInProgress = () => (
     <div data-testid="loader" className="loader">
-      <Loader type="TailSpin" color="#4656a1" height={50} width={50} />
+      <p>loading</p>
     </div>
   )
 
