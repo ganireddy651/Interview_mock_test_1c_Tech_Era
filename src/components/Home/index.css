@@ -1,0 +1,29 @@
+.courses-container {
+  padding: 40px;
+  margin: 0;
+}
+.list-container {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+.loader {
+  text-align: center;
+}
+.failure-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.retry-btn {
+  background-color: #4656a1;
+  border: none;
+  outline: none;
+  height: 30px;
+  width: 70px;
+  border-radius: 3px;
+  color: #ffffff;
+  font-weight: 600;
+}
